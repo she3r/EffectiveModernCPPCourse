@@ -93,13 +93,13 @@ Matrix &Matrix::operator=(const Matrix &other) {
     return *this;
 }
 
-Matrix Matrix::operator-() const{
-    Matrix out(*this);
-    for(int i=0;i<out.num_cols*out.num_rows;++i){
-        out.nd_array[i] = -out.nd_array[i];
-    }
-    return out;
-}
+//Matrix Matrix::operator-() const{
+//    Matrix out(*this);
+//    for(int i=0;i<out.num_cols*out.num_rows;++i){
+//        out.nd_array[i] = -out.nd_array[i];
+//    }
+//    return out;
+//}
 
 std::ostream &operator<<(std::ostream &stream, const Matrix &matrix) {
     for(int n=1;n<=matrix.num_rows;++n){
@@ -109,4 +109,32 @@ std::ostream &operator<<(std::ostream &stream, const Matrix &matrix) {
         stream << std::endl;
     }
     return stream;
+}
+
+Matrix::Matrix(Matrix &&m) noexcept {
+    this->num_cols = std::exchange(m.num_cols,0);
+    this->num_rows = std::exchange(m.num_rows,0);
+    this->nd_array = std::exchange(m.nd_array, nullptr);
+    std::cout<<"move constructor"<<std::endl;
+}
+
+
+
+Matrix operator-(const Matrix &m) {
+    Matrix out(m);
+    for(int i=0;i<out.num_cols*out.num_rows;++i){
+        out.nd_array[i] = -out.nd_array[i];
+    }
+    return out;
+}
+
+Matrix &Matrix::operator=(Matrix &&other) noexcept {
+    if (this != &other) {
+        delete[] this->nd_array;
+        this->num_cols = std::exchange(other.num_cols, 0);
+        this->num_rows = std::exchange(other.num_rows, 0);
+        this->nd_array = std::exchange(other.nd_array, nullptr);
+    }
+    std::cout<<"move assignment operator"<<std::endl;
+    return *this;
 }
