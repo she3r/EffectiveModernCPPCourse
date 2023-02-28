@@ -5,7 +5,7 @@
 #include "Matrix.h"
 
 
-Matrix::Matrix(std::initializer_list<double>& d){
+Matrix::Matrix(std::initializer_list<double> d){
     nd_array = new double[d.size()];
     std::copy(d.begin(),d.end(),nd_array);
     num_rows = 1;
@@ -20,7 +20,7 @@ Matrix::Matrix(size_t num_rows, size_t num_cols){
     std::cout<<"constructor of "<<num_rows<<"x"<<num_cols<<" matrix"<<std::endl;
 }
 
-Matrix::Matrix(std::initializer_list<std::initializer_list<double>>& d){
+Matrix::Matrix(std::initializer_list<std::initializer_list<double>> d){
     size_t n=0,k=0;
     for(auto list : d){
         n++; // num of rows
@@ -91,4 +91,22 @@ Matrix &Matrix::operator=(const Matrix &other) {
     }
     std::cout<<"copy assignment operator"<<std::endl;
     return *this;
+}
+
+Matrix Matrix::operator-() const{
+    Matrix out(*this);
+    for(int i=0;i<out.num_cols*out.num_rows;++i){
+        out.nd_array[i] = -out.nd_array[i];
+    }
+    return out;
+}
+
+std::ostream &operator<<(std::ostream &stream, const Matrix &matrix) {
+    for(int n=1;n<=matrix.num_rows;++n){
+        for(int k=1;k<=matrix.num_cols;++k){
+            stream << matrix(n,k) << " ";
+        }
+        stream << std::endl;
+    }
+    return stream;
 }

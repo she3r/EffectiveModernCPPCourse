@@ -3,4 +3,4 @@ project(EffectiveModernCPPCourse)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(EffectiveModernCPPCourse main.cpp "first/Matrix.cpp")
+add_executable(EffectiveModernCPPCourse matrix_test.cpp "first/Matrix.cpp")
