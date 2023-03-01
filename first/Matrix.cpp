@@ -2,6 +2,7 @@
 // Created by User on 28.02.2023.
 //
 #include <iostream>
+#include <utility>
 #include "Matrix.h"
 
 
@@ -15,6 +16,7 @@ Matrix::Matrix(std::initializer_list<double> d){
 
 Matrix::Matrix(size_t num_rows, size_t num_cols){
     this->nd_array = new double[num_cols * num_rows]{};
+    std::fill(nd_array,nd_array+num_cols * num_rows,0.0);
     this->num_cols=num_cols;
     this->num_rows=num_rows;
     std::cout<<"constructor of "<<num_rows<<"x"<<num_cols<<" matrix"<<std::endl;
@@ -29,6 +31,7 @@ Matrix::Matrix(std::initializer_list<std::initializer_list<double>> d){
         }
     }
     nd_array = new double[n*k] {};
+    std::fill(nd_array,nd_array+n*k,0.0);
     num_rows = n; num_cols = k;
     size_t curr_row = 0;
     for(auto list : d){
@@ -45,8 +48,9 @@ Matrix::Matrix(std::initializer_list<std::initializer_list<double>> d){
 
 Matrix::Matrix() {
     nd_array = new double[1] {};
+    nd_array[0]=0.0;
     num_rows = num_cols = 1;
-    std::cout<<"default construction [0]"<<std::endl;
+//    std::cout<<"default construction [0]"<<std::endl;
 }
 
 Matrix::~Matrix() {
@@ -103,10 +107,11 @@ Matrix &Matrix::operator=(const Matrix &other) {
 
 std::ostream &operator<<(std::ostream &stream, const Matrix &matrix) {
     for(int n=1;n<=matrix.num_rows;++n){
+        stream << "{ ";
         for(int k=1;k<=matrix.num_cols;++k){
             stream << matrix(n,k) << " ";
         }
-        stream << std::endl;
+        stream << "}" << std::endl;
     }
     return stream;
 }
@@ -121,7 +126,7 @@ Matrix::Matrix(Matrix &&m) noexcept {
 
 
 Matrix operator-(const Matrix &m) {
-    Matrix out(m);
+    Matrix out(m.num_rows,m.num_cols);
     for(int i=0;i<out.num_cols*out.num_rows;++i){
         out.nd_array[i] = -out.nd_array[i];
     }
@@ -137,4 +142,16 @@ Matrix &Matrix::operator=(Matrix &&other) noexcept {
     }
     std::cout<<"move assignment operator"<<std::endl;
     return *this;
+}
+
+MatrixWithLabel::MatrixWithLabel(std::string label, int numberOfRows, int numberOfColumns) : Matrix(numberOfRows,numberOfColumns), label(std::move(label)) {}
+MatrixWithLabel::MatrixWithLabel(std::string label, std::initializer_list<double> d) : Matrix(d), label(std::move(label)) {}
+MatrixWithLabel::MatrixWithLabel(std::string label, std::initializer_list<std::initializer_list<double>> d) : Matrix(d), label(std::move(label)) {}
+
+std::string MatrixWithLabel::getLabel() const{
+    return label;
+}
+
+void MatrixWithLabel::setLabel(std::string c){
+    label = std::move(c);
 }

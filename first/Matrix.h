@@ -27,4 +27,16 @@ public:
     friend std::ostream& operator<< (std::ostream& stream, const Matrix& matrix);
     friend Matrix operator-(const Matrix& m);
 };
+
+class MatrixWithLabel : Matrix{
+private:
+    std::string label;
+public:
+    using Matrix::Matrix;
+    MatrixWithLabel(std::string label, int numberOfRows, int numberOfColumns);
+    MatrixWithLabel(std::string label, std::initializer_list<double> d);
+    MatrixWithLabel(std::string label, std::initializer_list<std::initializer_list<double>> d);
+    void setLabel(std::string c);
+    [[nodiscard]] std::string getLabel() const;
+};
 #endif //EFFECTIVEMODERNCPPCOURSE_MATRIX_H
