@@ -7,11 +7,11 @@ int main() {
 
 	Container p1(10);
     Container p2(10);
-    Container p3 = p1 + p2;
+    Container p3 = p1 + p2;     // copy elision
 
 // The following lines should not compile
-    //  Container copy(p2); // ERROR!!!
-    //  p3 = p1;            // ERROR!!!
+    //  Container copy(p2); // ERROR!!! ok
+    //  p3 = p1;            // ERROR!!! ok
 
     cout << p1 << p2 << p3 << endl;
 

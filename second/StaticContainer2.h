@@ -6,13 +6,13 @@
 class Container : public Box {
 public:
     static bool verbose;
-    Container(int content):Box(content);                          // implement
-    Container(const Container & container);             // disable
- 	Container & operator=(const Container &container);  // disable
+    Container(int content):Box(content){}                          // implement
+    Container(const Container & container) = delete;             // disable
+ 	Container & operator=(const Container &container) = delete;  // disable
 
-	Container(Container && container);                  // enable
-  	Container & operator=(Container &&container);       // enable
-    ~Container();                                      // enable
+	Container(Container && container) = default;                  // enable
+  	Container & operator=(Container &&container) = default;       // enable
+    ~Container() = default;                                      // enable
 
     friend Container operator+(const Container & p1, const Container & p2);
     friend std::ostream & operator << (std::ostream & out, const Container & p){

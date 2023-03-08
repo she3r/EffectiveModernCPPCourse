@@ -22,7 +22,7 @@ namespace emcpp{
         MyString(const MyString & s) : Base(s){
             logger("Copy constructor");
         }
-        MyString(MyString && s) : Base(std::move(s)){
+        MyString(MyString && s)  noexcept : Base(std::move(s)){
             logger("Move constructor");
         }
         MyString & operator=(const MyString & s){
@@ -35,6 +35,7 @@ namespace emcpp{
             logger("Move assign operator");
             return *this;
         }
+
     };
     bool MyString::logging = true;
 

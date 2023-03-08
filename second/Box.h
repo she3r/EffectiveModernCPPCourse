@@ -41,7 +41,7 @@ class Box{
   void setContent(int content){
 	this->content = content;
   }
-  int getContent() const {
+  [[nodiscard]] int getContent() const {
 	return content;
   }
 };

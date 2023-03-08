@@ -2,6 +2,7 @@
 #include "StaticContainer.h"
 using namespace std;
 
+
 int main() {
     Box::verbose = true;
     Container::verbose = false;
