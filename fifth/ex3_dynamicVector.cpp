@@ -9,7 +9,7 @@ int main(){
     cout <<fixed << setprecision(2);
     using DWector = Vector<double, 0>;
 
-    DWector m0{4}; // Vector filled with zeroes
+    DWector m0(4); // Vector filled with zeroes
     LOG(m0);
 
     DWector m1{1.,  2.,  3.,  4.};   // Vector of size 4 from initialization_list
@@ -36,7 +36,16 @@ int main(){
     } catch(std::exception & e){
         cout << " Exception : " << e.what() << endl;
     }
-	return 0;
+
+    Vector<double,3> m5{1,2,3};
+    auto mm2 = m5 + (Vector<double,3>) m4;
+    auto mm3 = (Vector<double,3>) m4 + m5;
+    auto mm4 = (Vector<double,0>) m5;
+    auto mm5 = (Vector<int,10>) m5;
+    cout<< mm2 <<endl;
+    cout<< mm3 << endl;
+    cout<< mm4 << endl;
+    cout<<mm5<<endl;
 }
 /** Expected output
 m0 = 0.00 0.00 0.00 0.00

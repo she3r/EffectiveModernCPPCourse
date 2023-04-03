@@ -27,27 +27,29 @@ public:
         memset(data,0,sizeof(data));
     }
     Vector(const Vector & v) {
-        size_type size_of_v = std::end(v.data)-std::begin(v.data);
+        size_type size_of_v = v.size();
         for(int i=0;i<std::min(size_of_v, N);++i){
-            data[i] = v[i];
+            set(i,v.get(i));
+        }
+    }
+
+
+    Vector(const std::initializer_list<value_type> &list){
+        size_type i = 0;
+        for(auto item : list){
+            if(i < N)
+                data[i] = item;
+            else {break;}
+
+            i++;
         }
     }
     Vector &operator=(const Vector & m) {
         if(this != m){
-            size_type size_of_v = std::end(m.data)-std::begin(m.data);
+            size_type size_of_v = m.size();
             for(int i=0;i<std::min(size_of_v, N);++i){
-                data[i] = m[i];
+                data[i] = m.get(i);
             }
-        }
-    }
-    Vector(const std::initializer_list<T> &list){
-        size_t i = 0;
-        for(auto item : list){
-            if(i < N)
-                data[i] = item;
-            else break;
-
-            i++;
         }
     }
 
@@ -79,14 +81,36 @@ public:
         return out;
     }
 
+    operator Vector<T,0>(){
+        Vector<T,0> out(size());
+        for(size_type i=0;i<size();++i){
+            out.set(i,get(i));
+        }
+        return out;
+    }
+    template<typename S, size_type M>
+    operator Vector<S,M>(){
+        Vector<S,M> out;
+        for(size_type i=0;i<min(N,M);++i){
+            out.set(i,static_cast<S>(get(i)));
+        }
+        for(size_type i=min(N,M);i<M;++i){
+            out.set(i,static_cast<S>(0));
+        }
+        return out;
+    }
 };
 template <typename T, size_t N>
 Vector<T,N> operator+ (const  Vector<T,N> & u, const Vector<T,N> & v ){
     Vector<T,N> out{};
-    size_t size_of_out = std::min(std::end(u.data)-std::begin(u.data),std::end(v.data)-std::begin(v.data));
+    size_t size_of_out = u.size();
     for(size_t i = 0; i<size_of_out; ++i){
         out[i] = u[i] + v[i];
     }
     return out;
 }
+
+
+
+
 #endif //STATIC_VECTOR_H
