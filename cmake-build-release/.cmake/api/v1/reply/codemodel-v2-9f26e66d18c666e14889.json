@@ -1,0 +1,87 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "EffectiveModernCPPCourse",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Filter::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Filter-Release-434bf6b67eb4b4c3ac9f.json",
+					"name" : "Filter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MatrixIterator::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MatrixIterator-Release-4faf6dc776ba308358d3.json",
+					"name" : "MatrixIterator",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MatrixModifiers::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MatrixModifiers-Release-932b205bf7ce46385448.json",
+					"name" : "MatrixModifiers",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Range::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Range-Release-78d44abcdf13e3750862.json",
+					"name" : "Range",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/sch03/Documents/GitHub/EffectiveModernCPPCourse/cmake-build-release",
+		"source" : "C:/Users/sch03/Documents/GitHub/EffectiveModernCPPCourse"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

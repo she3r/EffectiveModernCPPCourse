@@ -1,6 +1,40 @@
 #include <iostream>
 #include <vector>
+#include <memory>
+#include <map>
 using namespace std;
+
+template<typename...Vars>
+class MultiVector;
+
+template<typename Var, typename...Vars>
+class MultiVector<Var,Vars...> : public MultiVector<Vars...>{
+private:
+    vector<Var> data;
+public:
+    //using MultiVector<Vars...>::print;
+    using MultiVector<Vars...>::push_back;
+    void push_back(Var v){
+        data.push_back(v);
+    }
+    void print() override{
+
+        cout<<"[ ";
+        for(const auto& item:data){
+            cout<<item<<" ";
+        }
+        cout<<" ] ";
+        MultiVector<Vars...>::print();
+    }
+};
+
+template<>
+class MultiVector<>{
+public:
+    void push_back(){}
+
+    virtual void print(){cout<<endl;}
+};
 
 int main(){
 

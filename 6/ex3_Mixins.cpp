@@ -41,6 +41,11 @@ public:
         notes.push_back(note);
     }
 };
+template<typename... Bases>
+class Mixins : public Bases...{
+public:
+    Mixins(Bases... bases) : Bases(bases)...{}
+};
 
 int main(){
 
@@ -49,7 +54,7 @@ int main(){
     cout << x.color << " area = " << x.area() << endl;
 
     using BlueRectangleWithNotes = Mixins<Blue, Rectangle, Note>;
-    RedCicleWithNotes y (Blue{}, Rectangle{3,4}, Note{"Hey"});
+    BlueRectangleWithNotes y (Blue{}, Rectangle{3,4}, Note{"Hey"});
     y.add("Ho");
     cout << y.color << " area = " << y.area() << endl;
 
