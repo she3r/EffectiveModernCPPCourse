@@ -15,14 +15,29 @@ template<class C>
                 cout << "random access iterator version" << endl;
 
                 nth_element(collection.begin(), collection.begin()+n, collection.end());
-                return collection[n];
+                if(collection.size() % 2 != 0)
+                    return collection[n];
+                else{
+                    double a = collection[n];
+                    nth_element(collection.begin(), collection.begin()+(n-1), collection.end());
+                    return (a + collection[n-1]) / 2;
+                }
             }
             else{
                 cout << "no random access iterator version" << endl;
                 collection.sort();
-                auto it = collection.begin();
-                std::advance(it,n);
-                return *it;
+                if(collection.size() % 2 != 0) {
+                    auto it = collection.begin();
+                    std::advance(it, n);
+                    return *it;
+                }
+                else{
+                    auto it = collection.begin();
+                    std::advance(it, n-1);
+                    double a = *it;
+                    std::advance(it,1);
+                    return (a + *it) / 2;
+                }
             }
         }
 
